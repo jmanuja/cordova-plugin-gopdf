@@ -1,0 +1,31 @@
+{
+    "name": "cordova-plugin-gopdf",
+    "version": "1.0.0",
+    "description": "Test Plugin",
+    "cordova": {
+      "id": "cordova-plugin-gopdf",
+      "platforms": [
+        "android"
+      ]
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/jmanuja/cordova-plugin-gopdf.git"
+    },
+    "keywords": [
+      "GO",
+      "PDF",
+      "ITEXTG",
+      "ecosystem:cordova",
+      "cordova-android"
+    ],
+    "engines": {
+        "cordova": ">=6.0.0"
+    },
+    "author": "Manuja Jayawardana <manuja.jayawardana92@gmail.com>",
+    "license": "MIT",
+    "bugs": {
+      "url": "https://github.com/jmanuja/cordova-plugin-gopdf/issues"
+    },
+    "homepage": "https://github.com/jmanuja/cordova-plugin-gopdf/"
+  }

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    id="cordova-plugin-gopdf"
+    version="1.0.0">
+
+    <name>GoPdf</name>
+    <repo>https://github.com/jmanuja/cordova-plugin-gopdf.git</repo>
+    <keywords>gopdf,pdf,android</keywords>
+    <license>MIT</license>
+    <author>Manuja Jayawardana</author>
+    <description>
+    
+    </description>
+
+    <js-module src="www/GoPdf.js" name="GoPdf">
+        <clobbers target="cordova.plugins.GoPdf" />
+        <clobbers target="GoPdf" />
+    </js-module>
+
+    <!-- android -->
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="GoPdf" >
+                <param name="android-package" value="com.cordova.plugin.gopdf.GoPdf"/>
+            </feature>
+        </config-file>
+
+		<framework src="com.itextpdf:itextg:5.5.10"/>        
+        <source-file src="src/android/GoPdf.java" target-dir="src/com/cordova/plugin/gopdf" />
+    </platform>
+</plugin>
