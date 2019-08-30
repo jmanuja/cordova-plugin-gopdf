@@ -41,60 +41,55 @@ public class GoPdf extends CordovaPlugin
     @Override
     public boolean execute (String action, JSONArray args, CallbackContext callbackContext) throws JSONException
     {
-		try
+	
+		if( action.equals("read") )
 		{
-			if( action.equals("read") )
-			{
-				try {
-					CordovaResourceApi resourceApi = webView.getResourceApi();
-					Uri fileUri = resourceApi.remapUri(Uri.parse(args.getString(0)));
-					fileUrl = fileUri.getPath();
-				} catch (Exception e) {
-					Log.d(LOG_TAG, "File Not Found " + args.getString(0) );
-					fileUrl = args.getString(0);
-				}
-
-				try {
-					Log.d(LOG_TAG, "PDF READ PROCESS STARTED" );
-					File storageDir = new File(fileUrl);
-					pdfFileName = storageDir.getName();
-
-					String parsedText="";
-					PdfReader reader = new PdfReader(storageDir.getAbsolutePath());
-					int n = reader.getNumberOfPages();
-					for (int i = 0; i <n ; i++) {
-						parsedText   = parsedText+ PdfTextExtractor.getTextFromPage(reader, i+1).trim()+"\n"; //Extracting the content from the different pages
+			cordova.getThreadPool().execute(new Runnable() {
+				@Override
+				public void run() {
+					try {
+						CordovaResourceApi resourceApi = webView.getResourceApi();
+						Uri fileUri = resourceApi.remapUri(Uri.parse(args.getString(0)));
+						fileUrl = fileUri.getPath();
+					} catch (Exception e) {
+						Log.d(LOG_TAG, "File Not Found " + args.getString(0) );
+						fileUrl = args.getString(0);
 					}
 
-					reader.close();
+					try {
+						Log.d(LOG_TAG, "PDF READ PROCESS STARTED" );
+						File storageDir = new File(fileUrl);
+						pdfFileName = storageDir.getName();
 
-					JSONObject successObj = new JSONObject();
-					successObj.put("status", "Success");
-					successObj.put("message", parsedText);
-					
-					callbackContext.success(successObj);
-			
-					return true;
-				}catch(Exception e){
-					Log.d(LOG_TAG, e.getMessage() );
-					JSONObject errorObj = new JSONObject();
-					errorObj.put("status", "error");
-					errorObj.put("message", e.getMessage());
-					callbackContext.error(errorObj);
-					return false;
+						String parsedText="";
+						PdfReader reader = new PdfReader(storageDir.getAbsolutePath());
+						int n = reader.getNumberOfPages();
+						for (int i = 0; i <n ; i++) {
+							parsedText   = parsedText+ PdfTextExtractor.getTextFromPage(reader, i+1).trim()+"\n"; //Extracting the content from the different pages
+						}
+
+						reader.close();
+
+						JSONObject successObj = new JSONObject();
+						successObj.put("status", "Success");
+						successObj.put("message", parsedText);
+						
+						callbackContext.success(successObj);
+				
+						return true;
+					}catch(Exception e){
+						e.printStackTrace();
+						Log.d(LOG_TAG, e.getMessage() );
+						JSONObject errorObj = new JSONObject();
+						errorObj.put("status", "error");
+						errorObj.put("message", e.getMessage());
+						callbackContext.error(errorObj);
+						return false;
+					}
 				}
-			}
-			return false;
+			});
 		}
-		catch (Exception e)
-		{
-			Log.d(LOG_TAG , e.getMessage() );
-			JSONObject errorObj = new JSONObject();
-			errorObj.put("status", "error");
-			errorObj.put("message", e.getMessage());
-			callbackContext.error(errorObj);
-			return false;
-		}
+		return false;
     }
 
 }
