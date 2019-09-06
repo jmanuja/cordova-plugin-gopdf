@@ -48,13 +48,14 @@ public class GoPdf extends CordovaPlugin
 				@Override
 				public void run() {
 					try {
+						String filePath = args.getString(0);
 						try {
 							CordovaResourceApi resourceApi = webView.getResourceApi();
-							Uri fileUri = resourceApi.remapUri(Uri.parse(args.getString(0)));
+							Uri fileUri = resourceApi.remapUri(Uri.parse(filePath));
 							fileUrl = fileUri.getPath();
 						} catch (Exception e) {
-							Log.d(LOG_TAG, "File Not Found " + args.getString(0) );
-							fileUrl = args.getString(0);
+							Log.d(LOG_TAG, "File Not Found " + filePath );
+							fileUrl = filePath;
 						}
 						
 						Log.d(LOG_TAG, "PDF READ PROCESS STARTED" );
