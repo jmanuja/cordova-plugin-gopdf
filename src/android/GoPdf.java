@@ -73,10 +73,7 @@ public class GoPdf extends CordovaPlugin
 						JSONObject successObj = new JSONObject();
 						successObj.put("status", "Success");
 						successObj.put("message", parsedText);
-						
-						PluginResult result = new PluginResult(status, obj);
-					        result.setKeepCallback(keepCallback);
-					        callbackContext.sendPluginResult(result);
+					
 						
 						callbackContext.success(successObj);
 				
