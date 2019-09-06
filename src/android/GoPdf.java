@@ -39,7 +39,7 @@ public class GoPdf extends CordovaPlugin
 	}
 
     @Override
-    public boolean execute (String action, JSONArray args, CallbackContext callbackContext) throws Exception
+    public boolean execute (String action, JSONArray args, CallbackContext callbackContext) throws JSONException
     {
 	
 		if( action.equals("read") )
@@ -87,6 +87,7 @@ public class GoPdf extends CordovaPlugin
 					}
 				}
 			});
+			return true;
 		}
 		return false;
     }
