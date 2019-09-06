@@ -76,7 +76,6 @@ public class GoPdf extends CordovaPlugin
 						
 						callbackContext.success(successObj);
 				
-						return true;
 					}catch(Exception e){
 						e.printStackTrace();
 						Log.d(LOG_TAG, e.getMessage() );
@@ -84,7 +83,6 @@ public class GoPdf extends CordovaPlugin
 						errorObj.put("status", "error");
 						errorObj.put("message", e.getMessage());
 						callbackContext.error(errorObj);
-						return false;
 					}
 				}
 			});
