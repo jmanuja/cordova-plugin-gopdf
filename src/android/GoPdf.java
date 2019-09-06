@@ -39,12 +39,12 @@ public class GoPdf extends CordovaPlugin
 	}
 
     @Override
-    public boolean execute (String action, JSONArray args, CallbackContext callbackContext) throws JSONException
+    public boolean execute (String action, JSONArray args, CallbackContext callbackContext) throws Exception
     {
 	
 		if( action.equals("read") )
 		{
-			cordova.getThreadPool().execute(new Runnable() {
+			 this.cordova.getActivity().runOnUiThread(new Runnable() {
 				@Override
 				public void run() {
 					try {
@@ -73,6 +73,10 @@ public class GoPdf extends CordovaPlugin
 						JSONObject successObj = new JSONObject();
 						successObj.put("status", "Success");
 						successObj.put("message", parsedText);
+						
+						PluginResult result = new PluginResult(status, obj);
+					        result.setKeepCallback(keepCallback);
+					        callbackContext.sendPluginResult(result);
 						
 						callbackContext.success(successObj);
 				
