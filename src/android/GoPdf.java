@@ -95,7 +95,7 @@ public class GoPdf extends CordovaPlugin
 						errorObj.put("message", e.getMessage());
 						callbackContext.error(errorObj);
 					}catch (JSONException ex) {
-						Log.d(LOG_TAG, ex.getMessage);
+						Log.d(LOG_TAG, ex.getMessage());
 					}
 				}
             }
